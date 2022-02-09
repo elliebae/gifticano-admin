@@ -1,0 +1,50 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "Gifticons",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "selling_status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "uploadedAt",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Gifticons",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "selling_status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "uploadedAt",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Gifticons",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "uploadedAt",
+          "order": "DESCENDING"
+        }
+      ]
+    }
+  ]
+}
