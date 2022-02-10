@@ -183,9 +183,16 @@ class _ResellStatusWidgetState extends State<ResellStatusWidget> {
                                                             .fromSTEB(
                                                                 0, 10, 0, 0),
                                                     child: FFButtonWidget(
-                                                      onPressed: () {
-                                                        print(
-                                                            'Button pressed ...');
+                                                      onPressed: () async {
+                                                        final gifticonsUpdateData =
+                                                            createGifticonsRecordData(
+                                                          sellingStatus:
+                                                              'onsale',
+                                                        );
+                                                        await listViewGifticonsRecord
+                                                            .reference
+                                                            .update(
+                                                                gifticonsUpdateData);
                                                       },
                                                       text: '판매  신청',
                                                       options: FFButtonOptions(
