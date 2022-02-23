@@ -1,5 +1,4 @@
 import '../backend/backend.dart';
-import '../find_price/find_price_widget.dart';
 import '../flutter_flow/flutter_flow_choice_chips.dart';
 import '../flutter_flow/flutter_flow_drop_down.dart';
 import '../flutter_flow/flutter_flow_expanded_image_view.dart';
@@ -76,17 +75,12 @@ class _CheckGifticonsWidgetState extends State<CheckGifticonsWidget> {
                           size: 30,
                         ),
                         onPressed: () async {
-                          await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => FindPriceWidget(),
-                            ),
-                          );
+                          await launchURL('https://gift.kakao.com/search');
                         },
                       ),
                       Text(
                         '검수',
-                        style: FlutterFlowTheme.title1,
+                        style: FlutterFlowTheme.of(context).title1,
                       ),
                       FlutterFlowIconButton(
                         borderColor: Colors.transparent,
@@ -129,7 +123,7 @@ class _CheckGifticonsWidgetState extends State<CheckGifticonsWidget> {
                             width: 50,
                             height: 50,
                             child: CircularProgressIndicator(
-                              color: FlutterFlowTheme.primaryColor,
+                              color: FlutterFlowTheme.of(context).primaryColor,
                             ),
                           ),
                         );
@@ -189,56 +183,67 @@ class _CheckGifticonsWidgetState extends State<CheckGifticonsWidget> {
                                       ),
                                     ),
                                   ),
-                                  CheckboxListTile(
-                                    value: checkboxListTileValueMap[
-                                        listViewGifticonsRecord] ??= false,
-                                    onChanged: (newValue) => setState(() =>
-                                        checkboxListTileValueMap[
-                                                listViewGifticonsRecord] =
-                                            newValue),
-                                    title: Text(
-                                      '유효기간',
-                                      style: FlutterFlowTheme.bodyText1,
+                                  Theme(
+                                    data: ThemeData(
+                                      unselectedWidgetColor: Color(0xFF707070),
                                     ),
-                                    tileColor: Colors.white,
-                                    dense: false,
-                                    controlAffinity:
-                                        ListTileControlAffinity.trailing,
+                                    child: CheckboxListTile(
+                                      value: checkboxListTileValueMap[
+                                          listViewGifticonsRecord] ??= false,
+                                      onChanged: (newValue) => setState(() =>
+                                          checkboxListTileValueMap[
+                                                  listViewGifticonsRecord] =
+                                              newValue),
+                                      title: Text(
+                                        '유효기간',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1,
+                                      ),
+                                      tileColor: Colors.white,
+                                      dense: false,
+                                      controlAffinity:
+                                          ListTileControlAffinity.trailing,
+                                    ),
                                   ),
                                   FlutterFlowChoiceChips(
-                                    initialOption: choiceChipsValue ??=
-                                        'waiting',
+                                    initiallySelected: choiceChipsValue != null
+                                        ? [choiceChipsValue]
+                                        : ['waiting'],
                                     options: [
                                       ChipData('pass',
                                           Icons.check_circle_outline_rounded),
                                       ChipData('fail', Icons.cancel_outlined)
                                     ],
-                                    onChanged: (val) =>
-                                        setState(() => choiceChipsValue = val),
+                                    onChanged: (val) => setState(
+                                        () => choiceChipsValue = val.first),
                                     selectedChipStyle: ChipStyle(
                                       backgroundColor:
-                                          FlutterFlowTheme.primaryColor,
-                                      textStyle:
-                                          FlutterFlowTheme.bodyText1.override(
-                                        fontFamily: 'Poppins',
-                                        color: Colors.white,
-                                      ),
+                                          FlutterFlowTheme.of(context)
+                                              .primaryColor,
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: Colors.white,
+                                          ),
                                       iconColor: Colors.white,
                                       iconSize: 18,
                                       elevation: 0,
                                     ),
                                     unselectedChipStyle: ChipStyle(
                                       backgroundColor: Color(0xFFDCDCDC),
-                                      textStyle:
-                                          FlutterFlowTheme.bodyText2.override(
-                                        fontFamily: 'Poppins',
-                                        color: Color(0xFF262D34),
-                                      ),
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .bodyText2
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: Color(0xFF262D34),
+                                          ),
                                       iconColor: Color(0xFF262D34),
                                       iconSize: 18,
                                       elevation: 0,
                                     ),
                                     chipSpacing: 20,
+                                    multiselect: false,
                                   ),
                                   if ((choiceChipsValue) == 'pass')
                                     TextFormField(
@@ -286,7 +291,8 @@ class _CheckGifticonsWidgetState extends State<CheckGifticonsWidget> {
                                               )
                                             : null,
                                       ),
-                                      style: FlutterFlowTheme.bodyText1,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1,
                                       keyboardType: TextInputType.number,
                                     ),
                                   if ((choiceChipsValue) == 'pass')
@@ -335,7 +341,8 @@ class _CheckGifticonsWidgetState extends State<CheckGifticonsWidget> {
                                               )
                                             : null,
                                       ),
-                                      style: FlutterFlowTheme.bodyText1,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1,
                                       keyboardType: TextInputType.number,
                                     ),
                                   if ((choiceChipsValue) == 'fail')
@@ -346,7 +353,8 @@ class _CheckGifticonsWidgetState extends State<CheckGifticonsWidget> {
                                       children: [
                                         Text(
                                           '반려 사유',
-                                          style: FlutterFlowTheme.bodyText1,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1,
                                         ),
                                         FlutterFlowDropDown(
                                           options: [
@@ -359,17 +367,19 @@ class _CheckGifticonsWidgetState extends State<CheckGifticonsWidget> {
                                             '배송 상품은 등록하실 수 없습니다',
                                             '인식되지 않는 기프티콘',
                                             '기타',
-                                            ''
+                                            '사용 가능 매장을 알 수 없는 기프티콘'
                                           ].toList(),
                                           onChanged: (val) => setState(
                                               () => dropDownValue = val),
                                           width: 180,
                                           height: 50,
-                                          textStyle: FlutterFlowTheme.bodyText1
-                                              .override(
-                                            fontFamily: 'Poppins',
-                                            color: Colors.black,
-                                          ),
+                                          textStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .bodyText1
+                                                  .override(
+                                                    fontFamily: 'Poppins',
+                                                    color: Colors.black,
+                                                  ),
                                           hintText: 'Please select...',
                                           fillColor: Colors.white,
                                           elevation: 2,
@@ -437,17 +447,23 @@ class _CheckGifticonsWidgetState extends State<CheckGifticonsWidget> {
                                         );
                                         await listViewGifticonsRecord.reference
                                             .update(gifticonsUpdateData);
+                                        setState(() {
+                                          textController1.clear();
+                                          textController2.clear();
+                                        });
                                       },
                                       text: '검수하기',
                                       options: FFButtonOptions(
                                         width: 130,
                                         height: 40,
-                                        color: FlutterFlowTheme.primaryColor,
-                                        textStyle:
-                                            FlutterFlowTheme.subtitle2.override(
-                                          fontFamily: 'Poppins',
-                                          color: Colors.white,
-                                        ),
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryColor,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .subtitle2
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color: Colors.white,
+                                            ),
                                         borderSide: BorderSide(
                                           color: Colors.transparent,
                                           width: 1,

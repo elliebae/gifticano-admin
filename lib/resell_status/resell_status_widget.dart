@@ -52,7 +52,7 @@ class _ResellStatusWidgetState extends State<ResellStatusWidget> {
                     children: [
                       Text(
                         '판매 현황',
-                        style: FlutterFlowTheme.title1,
+                        style: FlutterFlowTheme.of(context).title1,
                       ),
                     ],
                   ),
@@ -88,7 +88,8 @@ class _ResellStatusWidgetState extends State<ResellStatusWidget> {
                                         width: 50,
                                         height: 50,
                                         child: CircularProgressIndicator(
-                                          color: FlutterFlowTheme.primaryColor,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
                                         ),
                                       ),
                                     );
@@ -170,7 +171,8 @@ class _ResellStatusWidgetState extends State<ResellStatusWidget> {
                                               Text(
                                                 '바코드: ${listViewGifticonsRecord.barcodeNumber}',
                                                 style:
-                                                    FlutterFlowTheme.bodyText1,
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText1,
                                               ),
                                               Row(
                                                 mainAxisSize: MainAxisSize.max,
@@ -198,15 +200,20 @@ class _ResellStatusWidgetState extends State<ResellStatusWidget> {
                                                       options: FFButtonOptions(
                                                         width: 130,
                                                         height: 40,
-                                                        color: FlutterFlowTheme
-                                                            .primaryColor,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryColor,
                                                         textStyle:
-                                                            FlutterFlowTheme
+                                                            FlutterFlowTheme.of(
+                                                                    context)
                                                                 .subtitle2
                                                                 .override(
-                                                          fontFamily: 'Poppins',
-                                                          color: Colors.white,
-                                                        ),
+                                                                  fontFamily:
+                                                                      'Poppins',
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
                                                         borderSide: BorderSide(
                                                           color: Colors
                                                               .transparent,
@@ -243,7 +250,8 @@ class _ResellStatusWidgetState extends State<ResellStatusWidget> {
                                         width: 50,
                                         height: 50,
                                         child: CircularProgressIndicator(
-                                          color: FlutterFlowTheme.primaryColor,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
                                         ),
                                       ),
                                     );
@@ -327,7 +335,8 @@ class _ResellStatusWidgetState extends State<ResellStatusWidget> {
                                                     .fromSTEB(0, 0, 0, 10),
                                                 child: Text(
                                                   '바코드: ${listViewGifticonsRecord.barcodeNumber}',
-                                                  style: FlutterFlowTheme
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .bodyText1,
                                                 ),
                                               ),
@@ -367,7 +376,8 @@ class _ResellStatusWidgetState extends State<ResellStatusWidget> {
                                                   ),
                                                 ),
                                                 style:
-                                                    FlutterFlowTheme.bodyText1,
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyText1,
                                                 keyboardType:
                                                     TextInputType.number,
                                               ),
@@ -401,12 +411,15 @@ class _ResellStatusWidgetState extends State<ResellStatusWidget> {
                                                         color:
                                                             Color(0x70707070),
                                                         textStyle:
-                                                            FlutterFlowTheme
+                                                            FlutterFlowTheme.of(
+                                                                    context)
                                                                 .subtitle2
                                                                 .override(
-                                                          fontFamily: 'Poppins',
-                                                          color: Colors.white,
-                                                        ),
+                                                                  fontFamily:
+                                                                      'Poppins',
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
                                                         borderSide: BorderSide(
                                                           color: Colors
                                                               .transparent,
@@ -441,15 +454,20 @@ class _ResellStatusWidgetState extends State<ResellStatusWidget> {
                                                       options: FFButtonOptions(
                                                         width: 130,
                                                         height: 40,
-                                                        color: FlutterFlowTheme
-                                                            .primaryColor,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primaryColor,
                                                         textStyle:
-                                                            FlutterFlowTheme
+                                                            FlutterFlowTheme.of(
+                                                                    context)
                                                                 .subtitle2
                                                                 .override(
-                                                          fontFamily: 'Poppins',
-                                                          color: Colors.white,
-                                                        ),
+                                                                  fontFamily:
+                                                                      'Poppins',
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
                                                         borderSide: BorderSide(
                                                           color: Colors
                                                               .transparent,
@@ -475,6 +493,8 @@ class _ResellStatusWidgetState extends State<ResellStatusWidget> {
                                       gifticonsRecord
                                           .where('selling_status',
                                               isEqualTo: 'sold')
+                                          .where('hasProblem',
+                                              isNotEqualTo: true)
                                           .orderBy('uploadedAt',
                                               descending: true),
                                 ),
@@ -486,7 +506,8 @@ class _ResellStatusWidgetState extends State<ResellStatusWidget> {
                                         width: 50,
                                         height: 50,
                                         child: CircularProgressIndicator(
-                                          color: FlutterFlowTheme.primaryColor,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryColor,
                                         ),
                                       ),
                                     );
@@ -515,11 +536,9 @@ class _ResellStatusWidgetState extends State<ResellStatusWidget> {
                                         child: Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  20, 20, 20, 20),
+                                                  0, 0, 0, 10),
                                           child: Column(
                                             mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
                                             children: [
                                               InkWell(
                                                 onTap: () async {
@@ -565,15 +584,85 @@ class _ResellStatusWidgetState extends State<ResellStatusWidget> {
                                                   ),
                                                 ),
                                               ),
-                                              Text(
-                                                '바코드: ${listViewGifticonsRecord.barcodeNumber}',
-                                                style:
-                                                    FlutterFlowTheme.bodyText1,
+                                              Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    '바코드: ${listViewGifticonsRecord.barcodeNumber}',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyText1,
+                                                  ),
+                                                  Text(
+                                                    '판매가: ${listViewGifticonsRecord.resellPrice.toString()}',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyText1,
+                                                  ),
+                                                ],
                                               ),
-                                              Text(
-                                                '판매가: ${listViewGifticonsRecord.resellPrice.toString()}',
-                                                style:
-                                                    FlutterFlowTheme.bodyText1,
+                                              FFButtonWidget(
+                                                onPressed: () async {
+                                                  await showDialog(
+                                                    context: context,
+                                                    builder:
+                                                        (alertDialogContext) {
+                                                      return AlertDialog(
+                                                        title:
+                                                            Text('사용완료건 맞나?'),
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext),
+                                                            child: Text('취소'),
+                                                          ),
+                                                          TextButton(
+                                                            onPressed:
+                                                                () async {
+                                                              Navigator.pop(
+                                                                  alertDialogContext);
+
+                                                              final gifticonsUpdateData =
+                                                                  createGifticonsRecordData(
+                                                                hasProblem:
+                                                                    true,
+                                                              );
+                                                              await listViewGifticonsRecord
+                                                                  .reference
+                                                                  .update(
+                                                                      gifticonsUpdateData);
+                                                              ;
+                                                            },
+                                                            child: Text('ㅇㅇ'),
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                                text: '사용완료건',
+                                                options: FFButtonOptions(
+                                                  width: 130,
+                                                  height: 40,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryColor,
+                                                  textStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .subtitle2
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color: Colors.white,
+                                                      ),
+                                                  borderSide: BorderSide(
+                                                    color: Colors.transparent,
+                                                    width: 1,
+                                                  ),
+                                                  borderRadius: 12,
+                                                ),
                                               ),
                                             ],
                                           ),
