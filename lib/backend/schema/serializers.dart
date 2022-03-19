@@ -7,6 +7,7 @@ import 'point_history_record.dart';
 
 import 'index.dart';
 
+export '../algolia/algolia_manager.dart';
 export 'index.dart';
 
 part 'serializers.g.dart';

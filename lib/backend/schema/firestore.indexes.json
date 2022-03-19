@@ -5,56 +5,6 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "selling_status",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "status",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "uploadedAt",
-          "order": "DESCENDING"
-        }
-      ]
-    },
-    {
-      "collectionGroup": "Gifticons",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "selling_status",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "uploadedAt",
-          "order": "DESCENDING"
-        }
-      ]
-    },
-    {
-      "collectionGroup": "Gifticons",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "selling_status",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "hasProblem",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "uploadedAt",
-          "order": "DESCENDING"
-        }
-      ]
-    },
-    {
-      "collectionGroup": "Gifticons",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
           "fieldPath": "status",
           "order": "ASCENDING"
         },
@@ -75,6 +25,20 @@
         {
           "fieldPath": "refund",
           "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "Gifticons",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "selling_status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "uploadedAt",
+          "order": "DESCENDING"
         }
       ]
     }
