@@ -1,13 +1,14 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:gifticano_admin/check_gifticons/check_gifticons_widget.dart';
+import 'package:gifticano_admin/resell_gifticons/resell_gifticons_widget.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
+import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'check_gifticons/check_gifticons_widget.dart';
-import 'resell_status/resell_status_widget.dart';
+import 'resell_gifticons/resell_gifticons_widget.dart';
 import 'used_page/used_page_widget.dart';
 
 void main() async {
@@ -78,7 +79,7 @@ class _NavBarPageState extends State<NavBarPage> {
   Widget build(BuildContext context) {
     final tabs = {
       'CheckGifticons': CheckGifticonsWidget(),
-      'ResellStatus': ResellStatusWidget(),
+      'ResellGifticons': ResellGifticonsWidget(),
       'UsedPage': UsedPageWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPage);

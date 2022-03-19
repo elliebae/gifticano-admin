@@ -244,6 +244,7 @@ class _CheckGifticonsWidgetState extends State<CheckGifticonsWidget> {
                                     ),
                                     chipSpacing: 20,
                                     multiselect: false,
+                                    initialized: choiceChipsValue != null,
                                   ),
                                   if ((choiceChipsValue) == 'pass')
                                     TextFormField(
@@ -367,7 +368,11 @@ class _CheckGifticonsWidgetState extends State<CheckGifticonsWidget> {
                                             '배송 상품은 등록하실 수 없습니다',
                                             '인식되지 않는 기프티콘',
                                             '기타',
-                                            '사용 가능 매장을 알 수 없는 기프티콘'
+                                            '사용 가능 매장을 알 수 없는 기프티콘',
+                                            '카카오톡 기프티콘의 경우 \'교환권 저장\' 후 다시 업로드 해주세요.',
+                                            '4500원 미만의 기프티콘은 등록하실 수 없어요.',
+                                            '재판매가 불가능한 기프티콘',
+                                            '해당 브랜드는 준비 중입니다.'
                                           ].toList(),
                                           onChanged: (val) => setState(
                                               () => dropDownValue = val),
@@ -380,7 +385,7 @@ class _CheckGifticonsWidgetState extends State<CheckGifticonsWidget> {
                                                     fontFamily: 'Poppins',
                                                     color: Colors.black,
                                                   ),
-                                          hintText: 'Please select...',
+                                          hintText: '반려사유를 골라주세요',
                                           fillColor: Colors.white,
                                           elevation: 2,
                                           borderColor: Colors.transparent,
@@ -400,47 +405,48 @@ class _CheckGifticonsWidgetState extends State<CheckGifticonsWidget> {
                                       onPressed: () async {
                                         if (checkboxListTileValueMap[
                                             listViewGifticonsRecord]) {
-                                          await showDialog(
-                                            context: context,
-                                            builder: (alertDialogContext) {
-                                              return AlertDialog(
-                                                title: Text('검수 ㄹㅇ?'),
-                                                actions: [
-                                                  TextButton(
-                                                    onPressed: () =>
-                                                        Navigator.pop(
-                                                            alertDialogContext),
-                                                    child: Text('ㄴㄴ'),
-                                                  ),
-                                                  TextButton(
-                                                    onPressed: () async {
-                                                      Navigator.pop(
-                                                          alertDialogContext);
-
-                                                      final gifticonsUpdateData =
-                                                          createGifticonsRecordData(
-                                                        barcodeNumber:
-                                                            textController1
-                                                                .text,
-                                                        failReason:
-                                                            dropDownValue,
-                                                        price: int.parse(
-                                                            textController2
-                                                                .text),
+                                          var confirmDialogResponse =
+                                              await showDialog<bool>(
+                                                    context: context,
+                                                    builder:
+                                                        (alertDialogContext) {
+                                                      return AlertDialog(
+                                                        title: Text('검수 ㄹㅇ?'),
+                                                        actions: [
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext,
+                                                                    false),
+                                                            child: Text('ㄴㄴ'),
+                                                          ),
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.pop(
+                                                                    alertDialogContext,
+                                                                    true),
+                                                            child: Text('ㅇㅇ'),
+                                                          ),
+                                                        ],
                                                       );
-                                                      await listViewGifticonsRecord
-                                                          .reference
-                                                          .update(
-                                                              gifticonsUpdateData);
-                                                      ;
                                                     },
-                                                    child: Text('ㅇㅇ'),
-                                                  ),
-                                                ],
-                                              );
-                                            },
-                                          );
+                                                  ) ??
+                                                  false;
+                                          if (confirmDialogResponse) {
+                                            final gifticonsUpdateData =
+                                                createGifticonsRecordData(
+                                              barcodeNumber:
+                                                  textController1.text,
+                                              failReason: dropDownValue,
+                                              price: int.parse(
+                                                  textController2.text),
+                                            );
+                                            await listViewGifticonsRecord
+                                                .reference
+                                                .update(gifticonsUpdateData);
+                                          }
                                         }
+
                                         final gifticonsUpdateData =
                                             createGifticonsRecordData(
                                           status: choiceChipsValue,

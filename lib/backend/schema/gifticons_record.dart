@@ -47,6 +47,9 @@ abstract class GifticonsRecord
   bool get refund;
 
   @nullable
+  DateTime get recentSentAt;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -72,6 +75,41 @@ abstract class GifticonsRecord
       .get()
       .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
 
+  static GifticonsRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) =>
+      GifticonsRecord(
+        (c) => c
+          ..barcodeNumber = snapshot.data['barcodeNumber']
+          ..failReason = snapshot.data['failReason']
+          ..imageURL = snapshot.data['imageURL']
+          ..price = snapshot.data['price']
+          ..status = snapshot.data['status']
+          ..uploadedAt = safeGet(() =>
+              DateTime.fromMillisecondsSinceEpoch(snapshot.data['uploadedAt']))
+          ..userId = safeGet(() => toRef(snapshot.data['userId']))
+          ..sellingStatus = snapshot.data['selling_status']
+          ..resellPrice = snapshot.data['resell_price']
+          ..hasProblem = snapshot.data['hasProblem']
+          ..refund = snapshot.data['refund']
+          ..recentSentAt = safeGet(() => DateTime.fromMillisecondsSinceEpoch(
+              snapshot.data['recentSentAt']))
+          ..reference = GifticonsRecord.collection.doc(snapshot.objectID),
+      );
+
+  static Future<List<GifticonsRecord>> search(
+          {String term,
+          FutureOr<LatLng> location,
+          int maxResults,
+          double searchRadiusMeters}) =>
+      FFAlgoliaManager.instance
+          .algoliaQuery(
+            index: 'Gifticons',
+            term: term,
+            maxResults: maxResults,
+            location: location,
+            searchRadiusMeters: searchRadiusMeters,
+          )
+          .then((r) => r.map(fromAlgolia).toList());
+
   GifticonsRecord._();
   factory GifticonsRecord([void Function(GifticonsRecordBuilder) updates]) =
       _$GifticonsRecord;
@@ -94,6 +132,7 @@ Map<String, dynamic> createGifticonsRecordData({
   int resellPrice,
   bool hasProblem,
   bool refund,
+  DateTime recentSentAt,
 }) =>
     serializers.toFirestore(
         GifticonsRecord.serializer,
@@ -108,4 +147,5 @@ Map<String, dynamic> createGifticonsRecordData({
           ..sellingStatus = sellingStatus
           ..resellPrice = resellPrice
           ..hasProblem = hasProblem
-          ..refund = refund));
+          ..refund = refund
+          ..recentSentAt = recentSentAt));
