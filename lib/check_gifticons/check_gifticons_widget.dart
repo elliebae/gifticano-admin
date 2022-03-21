@@ -433,26 +433,75 @@ class _CheckGifticonsWidgetState extends State<CheckGifticonsWidget> {
                                                   ) ??
                                                   false;
                                           if (confirmDialogResponse) {
-                                            final gifticonsUpdateData =
-                                                createGifticonsRecordData(
-                                              barcodeNumber:
-                                                  textController1.text,
-                                              failReason: dropDownValue,
-                                              price: int.parse(
-                                                  textController2.text),
-                                            );
-                                            await listViewGifticonsRecord
-                                                .reference
-                                                .update(gifticonsUpdateData);
+                                            if ((choiceChipsValue) == 'pass') {
+                                              final gifticonsUpdateData =
+                                                  createGifticonsRecordData(
+                                                barcodeNumber:
+                                                    textController1.text,
+                                                price: int.parse(
+                                                    textController2.text),
+                                                status: 'pass',
+                                              );
+                                              await listViewGifticonsRecord
+                                                  .reference
+                                                  .update(gifticonsUpdateData);
+                                            } else {
+                                              if ((choiceChipsValue) ==
+                                                  'fail') {
+                                                final gifticonsUpdateData =
+                                                    createGifticonsRecordData(
+                                                  failReason: dropDownValue,
+                                                  status: 'fail',
+                                                );
+                                                await listViewGifticonsRecord
+                                                    .reference
+                                                    .update(
+                                                        gifticonsUpdateData);
+                                              } else {
+                                                await showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (alertDialogContext) {
+                                                    return AlertDialog(
+                                                      title:
+                                                          Text('합불을 선택해주세요.'),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  alertDialogContext),
+                                                          child: Text('Ok'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                                return;
+                                              }
+                                            }
+                                          } else {
+                                            return;
                                           }
+                                        } else {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (alertDialogContext) {
+                                              return AlertDialog(
+                                                title: Text('유효기간을 체크해주세요.'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext),
+                                                    child: Text('Ok'),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                          return;
                                         }
 
-                                        final gifticonsUpdateData =
-                                            createGifticonsRecordData(
-                                          status: choiceChipsValue,
-                                        );
-                                        await listViewGifticonsRecord.reference
-                                            .update(gifticonsUpdateData);
                                         setState(() {
                                           textController1.clear();
                                           textController2.clear();
